@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "Astro 5.0 minimal",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.2.0",
+    "@astrojs/mdx": "^4.0.7",
     "astro": "^5.1.8"
   }
 }

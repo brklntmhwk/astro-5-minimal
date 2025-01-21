@@ -1,0 +1,54 @@
+---
+import { Picture } from 'astro:assets';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'picture'>, 'alt' | 'src'> & {
+  alt: string;
+  src: string | ImageMetadata;
+};
+
+const { alt, src, ...props } = Astro.props;
+---
+
+{
+  typeof src === 'string' ? (
+    <img {alt} {src} {...props} />
+  ) : (
+    <figure>
+      <Picture
+        {alt}
+        {src}
+        formats={['avif']}
+        widths={[240, 540, 720, src.width]}
+        pictureAttributes={{
+          style: {
+            aspectRatio: `${src.width} / ${src.height}`,
+            margin: "0 auto",
+            maxHeight: "100%"
+          }
+        }}
+        {...props}
+      />
+      <figcaption>{alt}</figcaption>
+    </figure>
+  )
+}
+<style>
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    place-items: center;
+    margin-top: 1.125rem;
+    margin-bottom: 1.125rem;
+    & picture {
+      object-fit: contain;
+      background-size: cover;
+      background-repeat: repeat;
+      background-position: center;
+    }
+    & figcaption {
+      font-size: 0.875rem;
+    }
+  }
+</style>
