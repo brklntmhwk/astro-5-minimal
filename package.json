@@ -1,16 +1,19 @@
 {
   "name": "astro-5-minimal",
-  "type": "module",
   "version": "0.0.1",
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.2.0",
+    "@astrojs/mdx": "^4.0.7",
+    "astro": "^5.1.8"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
-  "dependencies": {
-    "@astrojs/cloudflare": "^12.2.0",
-    "@astrojs/mdx": "^4.0.7",
-    "astro": "^5.1.8"
+  "type": "module",
+  "devDependencies": {
+    "sharp": "^0.33.5"
   }
 }
