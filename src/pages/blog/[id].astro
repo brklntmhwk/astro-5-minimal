@@ -1,6 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { mdxComponents } from '../../lib/mdx-components';
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('blog');
@@ -12,5 +14,18 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<h1>{post.data.title}</h1>
-<Content />
+<Layout>
+  <article>
+    <h1>{post.data.title}</h1>
+    <Content components={mdxComponents} />
+  </article>
+</Layout>
+<style>
+  article {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 1.5rem;
+  }
+</style>

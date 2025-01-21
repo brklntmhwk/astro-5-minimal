@@ -4,10 +4,11 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'picture'>, 'alt' | 'src'> & {
   alt: string;
+  placeholder?: string;
   src: string | ImageMetadata;
 };
 
-const { alt, src, ...props } = Astro.props;
+const { alt, placeholder, src, ...props } = Astro.props;
 ---
 
 {
@@ -24,7 +25,8 @@ const { alt, src, ...props } = Astro.props;
           style: {
             aspectRatio: `${src.width} / ${src.height}`,
             margin: "0 auto",
-            maxHeight: "100%"
+            maxHeight: "100%",
+            width: "100%",
           }
         }}
         {...props}
@@ -33,7 +35,7 @@ const { alt, src, ...props } = Astro.props;
     </figure>
   )
 }
-<style>
+<style define:vars={{ blurUrl: `url(${placeholder})` }}>
   figure {
     display: flex;
     flex-direction: column;
@@ -41,13 +43,18 @@ const { alt, src, ...props } = Astro.props;
     place-items: center;
     margin-top: 1.125rem;
     margin-bottom: 1.125rem;
-    & picture {
+    picture {
       object-fit: contain;
       background-size: cover;
       background-repeat: repeat;
       background-position: center;
+      img {
+        max-width: 100%;
+        height: auto;
+        background-image: var(--blurUrl);
+      }
     }
-    & figcaption {
+    figcaption {
       font-size: 0.875rem;
     }
   }
