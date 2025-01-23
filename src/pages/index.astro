@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import PhotoGallery from '../components/PhotoGallery.astro';
 
+export const prerender = false;
+
 const posts = await getCollection('blog');
 ---
 
@@ -16,5 +18,5 @@ const posts = await getCollection('blog');
 		))
 	}
 	<h1>Photos</h1>
-	<PhotoGallery />
+	<PhotoGallery server:defer />
 </Layout>
