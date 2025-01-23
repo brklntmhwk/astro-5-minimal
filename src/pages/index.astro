@@ -1,13 +1,12 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import PhotoGallery from '../components/PhotoGallery.astro';
 
 const posts = await getCollection('blog');
 ---
 
 <Layout>
-	<Welcome />
 	<h1>Blog</h1>
 	{
 		posts.map((post) => (
@@ -16,4 +15,6 @@ const posts = await getCollection('blog');
 			</a>
 		))
 	}
+	<h1>Photos</h1>
+	<PhotoGallery server:defer />
 </Layout>
