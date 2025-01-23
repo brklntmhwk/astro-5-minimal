@@ -1,39 +1,32 @@
 ---
-// import { createApi } from 'unsplash-js';
+import { createApi } from 'unsplash-js';
 
-// const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
-// const unsplashApiClient = createApi({ accessKey });
+const getPhotos = async (pageNum?: number) => {
+  const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
+  const unsplashApiClient = createApi({ accessKey });
+  const res = await unsplashApiClient.users.getPhotos({
+    username: 'brklntmhwk',
+    page: 1,
+    perPage: pageNum ?? 6,
+  });
 
-// const getPhotos = async (pageNum?: number) => {
-//   const res = await unsplashApiClient.users.getPhotos({
-//     username: 'brklntmhwk',
-//     page: 1,
-//     perPage: pageNum ?? 6,
-//   });
+  if (res.errors) {
+    throw new Error(
+      `Error occurred when trying to get photos..: ${res.errors[0]} ${accessKey}`,
+    );
+  }
 
-//   if (res.errors) {
-//     throw new Error(
-//       `Error occurred when trying to get photos..: ${res.errors[0]} ${accessKey}`,
-//     );
-//   }
+  return res.response;
+};
 
-//   return res.response;
-// };
-
-// const photos = await getPhotos();
-
-let p = new Promise((resolve) => setTimeout(resolve, 400));
-await p;
-const roomsRemaining = 1 + Math.ceil(Math.random() * 8);
+const photos = await getPhotos();
 ---
 
-<p>Just {roomsRemaining} rooms available!</p>
-
-<!-- <p>Total photos: {photos.total}</p>
+<p>Total photos: {photos.total}</p>
 <p>Fetched photos: {photos.results.length}</p>
 {
   photos.results.map((photo) => (
     <p>Photo ID: {photo.id}</p>
 		<p>{photo.urls.raw}</p>
   ))
-} -->
+}
