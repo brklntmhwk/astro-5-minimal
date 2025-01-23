@@ -4,7 +4,8 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.0",
     "@astrojs/mdx": "^4.0.7",
-    "astro": "^5.1.8"
+    "astro": "^5.1.8",
+    "unsplash-js": "^7.0.19"
   },
   "scripts": {
     "dev": "astro dev",
@@ -15,7 +16,6 @@
   "type": "module",
   "devDependencies": {
     "astro-compress": "^2.3.6",
-    "sharp": "^0.33.5",
-    "unsplash-js": "^7.0.19"
+    "sharp": "^0.33.5"
   }
 }
