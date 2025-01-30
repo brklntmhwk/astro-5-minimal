@@ -1,13 +1,16 @@
 ---
 import { createApi } from 'unsplash-js';
 
-const getPhotos = async (pageNum?: number) => {
-  const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
-  const unsplashApiClient = createApi({ accessKey });
-  const res = await unsplashApiClient.users.getPhotos({
-    username: 'brklntmhwk',
+const accessKey = await (import.meta.env.UNSPLASH_API_ACCESS_KEY);
+const unsplashApiClient = createApi({ accessKey });
+
+const getPhotos = async () => {
+  const res = await unsplashApiClient.search.getPhotos({
+    query: 'cat',
     page: 1,
-    perPage: pageNum ?? 6,
+    perPage: 10,
+    color: 'green',
+    orientation: 'portrait',
   });
 
   if (res.errors) {
@@ -18,14 +21,29 @@ const getPhotos = async (pageNum?: number) => {
 
   return res.response;
 };
+// const getPhotos = async (pageNum?: number) => {
+//   const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
+//   const unsplashApiClient = createApi({ accessKey });
+//   const res = await unsplashApiClient.users.getPhotos({
+//     username: 'brklntmhwk',
+//     page: 1,
+//     perPage: pageNum ?? 6,
+//   });
+
+//   if (res.errors) {
+//     throw new Error(
+//       `Error occurred when trying to get photos..: ${res.errors[0]} ${accessKey}`,
+//     );
+//   }
+
+//   return res.response;
+// };
 
 const photos = await getPhotos();
 
 // const res = await fetch('https://api.sampleapis.com/beers/ale');
 // const data = await res.json();
 ---
-
-<!-- <p>{JSON.stringify(data, null, 2)}</p> -->
 
 <p>Total photos: {photos.total}</p>
 <p>Fetched photos: {photos.results.length}</p>
